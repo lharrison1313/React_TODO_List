@@ -11,7 +11,9 @@ class App extends React.Component {
       todo_data: [],
       completed_data: [],
       list_type: "todo",
-      input: ""
+      input: "",
+      todo_button_style: styles.todo_header_button_pressed,
+      comp_button_style: styles.todo_header_button,
     }
 
   }
@@ -77,6 +79,24 @@ class App extends React.Component {
     }
   }
 
+  onHeaderButtonClicked = (type) =>{
+    if(type === "todo"){
+      this.setState({
+          list_type:"todo",
+          todo_button_style: styles.todo_header_button_pressed,
+          comp_button_style: styles.todo_header_button,
+        });
+
+    }
+    else if(type === "completed"){
+      this.setState({
+        list_type:"completed",
+        todo_button_style: styles.todo_header_button,
+        comp_button_style: styles.todo_header_button_pressed,
+      })
+    }
+  }
+
   render(){
     return (
       <div className = {styles.container}>
@@ -88,8 +108,8 @@ class App extends React.Component {
 
           <div className = {styles.todo}>
             <div className={styles.todo_header}>
-              <button className={styles.todo_header_button} onClick={()=> {this.setState({list_type:"todo"})}}> <b>To-Do</b> </button>
-              <button className={styles.todo_header_button} onClick={()=> {this.setState({list_type:"completed"})}}> <b>Completed</b> </button>
+              <button className={this.state.todo_button_style} onClick={()=> this.onHeaderButtonClicked("todo")}> <b>To-Do</b> </button>
+              <button className={this.state.comp_button_style} onClick={()=> this.onHeaderButtonClicked("completed")}> <b>Completed</b> </button>
             </div>
 
             <div className={styles.todo_list_container}>
